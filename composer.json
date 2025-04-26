@@ -22,11 +22,11 @@
     "require": {
         "php": ">=8.1",
         "doctrine/annotations": "^1.13",
-        "friendsofsymfony/oauth2-php": "dev-symfony-6",
-        "symfony/dependency-injection": "^5.3 || ^6.0",
-        "symfony/framework-bundle": "^5.3 || ^6.0",
-        "symfony/security-bundle": "^5.3 || ^6.0",
-        "symfony/twig-bundle": "^5.3 || ^6.0"
+        "friendsofsymfony/oauth2-php": "dev-symfony-7",
+        "symfony/dependency-injection": "^7.2",
+        "symfony/framework-bundle": "^7.2",
+        "symfony/security-bundle": "^7.2",
+        "symfony/twig-bundle": "^7.2"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "^2.0",
@@ -37,18 +37,18 @@
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-phpunit": "^1.1",
         "phpunit/phpunit": "^9.0",
-        "symfony/console": "^5.3 || ^6.0",
-        "symfony/doctrine-messenger": "^5.3 || ^6.0",
-        "symfony/form": "^5.3 || ^6.0",
-        "symfony/http-kernel": "^5.3 || ^6.0",
-        "symfony/phpunit-bridge": "^5.3 || ^6.0",
-        "symfony/security-core": "^5.3 || ^6.0",
-        "symfony/yaml": "^5.3 || ^6.0"
+        "symfony/console": "^7.2",
+        "symfony/doctrine-messenger": "^7.2",
+        "symfony/form": "^7.2",
+        "symfony/http-kernel": "^7.2",
+        "symfony/phpunit-bridge": "^7.2",
+        "symfony/security-core": "^7.2",
+        "symfony/yaml": "^7.2"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/iisisrael/oauth2-php"
+            "url": "https://github.com/LookandFin/oauth2-php"
         }
     ],
     "conflict": {

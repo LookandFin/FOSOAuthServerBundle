@@ -20,30 +20,29 @@
     ],
     "homepage": "http://friendsofsymfony.github.com",
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.4",
         "doctrine/annotations": "^2.0",
         "friendsofsymfony/oauth2-php": "dev-symfony-7",
-        "symfony/dependency-injection": "^7.2",
-        "symfony/framework-bundle": "^7.2",
-        "symfony/security-bundle": "^7.2",
-        "symfony/twig-bundle": "^7.2"
+        "symfony/dependency-injection": "^8.0",
+        "symfony/framework-bundle": "^8.0",
+        "symfony/security-bundle": "^8.0",
+        "symfony/twig-bundle": "^8.0"
     },
     "require-dev": {
-        "doctrine/doctrine-bundle": "^2.0",
-        "doctrine/mongodb-odm": "^2.2",
-        "doctrine/orm": "~2.2",
+        "doctrine/doctrine-bundle": "^3.2",
+        "doctrine/orm": "~3.3",
         "phing/phing": "~2.4",
         "php-mock/php-mock-phpunit": "^2.5",
         "phpstan/phpstan": "^1.8",
         "phpstan/phpstan-phpunit": "^1.1",
         "phpunit/phpunit": "^9.0",
-        "symfony/console": "^7.2",
-        "symfony/doctrine-messenger": "^7.2",
-        "symfony/form": "^7.2",
-        "symfony/http-kernel": "^7.2",
-        "symfony/phpunit-bridge": "^7.2",
-        "symfony/security-core": "^7.2",
-        "symfony/yaml": "^7.2"
+        "symfony/console": "^8.0",
+        "symfony/doctrine-messenger": "^8.0",
+        "symfony/form": "^8.0",
+        "symfony/http-kernel": "^8.0",
+        "symfony/phpunit-bridge": "^8.0",
+        "symfony/security-core": "^8.0",
+        "symfony/yaml": "^8.0"
     },
     "repositories": [
         {

@@ -22,7 +22,7 @@
     "require": {
         "php": ">=8.4",
         "doctrine/annotations": "^2.0",
-        "friendsofsymfony/oauth2-php": "dev-symfony-7",
+        "friendsofsymfony/oauth2-php": "dev-symfony-8",
         "symfony/dependency-injection": "^8.0",
         "symfony/framework-bundle": "^8.0",
         "symfony/security-bundle": "^8.0",

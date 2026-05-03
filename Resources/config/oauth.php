@@ -5,6 +5,7 @@ use FOS\OAuthServerBundle\Command\CreateClientCommand;
 use FOS\OAuthServerBundle\Controller\TokenController;
 use FOS\OAuthServerBundle\Storage\OAuthStorage;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 return static function (ContainerConfigurator $container): void {
@@ -20,7 +21,7 @@ return static function (ContainerConfigurator $container): void {
             new Reference('fos_oauth_server.access_token_manager'),
             new Reference('fos_oauth_server.refresh_token_manager'),
             new Reference('fos_oauth_server.auth_code_manager'),
-            new Reference('fos_oauth_server.user_provider', ContainerConfigurator::IGNORE_ON_INVALID_REFERENCE),
+            new Reference('fos_oauth_server.user_provider', ContainerBuilder::IGNORE_ON_INVALID_REFERENCE),
             new Reference('security.password_hasher_factory'),
         ]);
 

@@ -4,6 +4,7 @@ use FOS\OAuthServerBundle\Controller\AuthorizeController;
 use FOS\OAuthServerBundle\Form\Handler\AuthorizeFormHandler;
 use FOS\OAuthServerBundle\Form\Type\AuthorizeFormType;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Form\Form;
 
@@ -39,6 +40,6 @@ return static function (ContainerConfigurator $container): void {
             new Reference('fos_oauth_server.client_manager'),
             new Reference('event_dispatcher'),
             new Reference('twig'),
-            new Reference('session', ContainerConfigurator::IGNORE_ON_INVALID_REFERENCE),
+            new Reference('session', ContainerBuilder::IGNORE_ON_INVALID_REFERENCE),
         ]);
 };

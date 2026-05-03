@@ -1,0 +1,9 @@
+parameters:
+    fos_oauth_server.security.entry_point.class: "FOS\\OAuthServerBundle\\Security\\EntryPoint\\OAuthEntryPoint"
+
+services:
+    fos_oauth_server.security.entry_point:
+        class: "%fos_oauth_server.security.entry_point.class%"
+        public: false
+        arguments:
+            - "@fos_oauth_server.server"

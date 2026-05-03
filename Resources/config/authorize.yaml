@@ -1,0 +1,43 @@
+services:
+    fos_oauth_server.authorize.form:
+        class: "Symfony\\Component\\Form\\Form"
+        arguments:
+            - "%fos_oauth_server.authorize.form.name%"
+            - "%fos_oauth_server.authorize.form.type%"
+            - null
+            - { "validation_groups": "%fos_oauth_server.authorize.form.validation_groups%" }
+
+    fos_oauth_server.authorize.form.type:
+        class: "FOS\\OAuthServerBundle\\Form\\Type\\AuthorizeFormType"
+        tags:
+            - { name: "form.type", alias: "fos_oauth_server_authorize" }
+
+    fos_oauth_server.authorize.form.handler.default:
+        class: "FOS\\OAuthServerBundle\\Form\\Handler\\AuthorizeFormHandler"
+        arguments:
+            - "@fos_oauth_server.authorize.form"
+            - "@request_stack"
+
+    FOS\OAuthServerBundle\Form\Handler\AuthorizeFormHandler:
+        alias: fos_oauth_server.authorize.form.handler.default
+        public: true
+
+    fos_oauth_server.controller.authorize:
+        class: "FOS\\OAuthServerBundle\\Controller\\AuthorizeController"
+        public: true
+        arguments:
+            - "@request_stack"
+            - "@fos_oauth_server.authorize.form"
+            - "@fos_oauth_server.server"
+            - "@security.token_storage"
+            - "@router"
+            - "@fos_oauth_server.client_manager"
+            - "@event_dispatcher"
+        tags:
+            - { name: controller.service_arguments }
+
+    fos_oauth_server.security.authenticator.manager:
+        class: "FOS\\OAuthServerBundle\\Security\\Authenticator\\Oauth2Authenticator"
+        arguments:
+            - "@fos_oauth_server.server"
+            - "@security.user_checker"

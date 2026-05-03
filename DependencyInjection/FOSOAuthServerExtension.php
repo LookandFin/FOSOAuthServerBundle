@@ -13,14 +13,15 @@ declare(strict_types=1);
 
 namespace FOS\OAuthServerBundle\DependencyInjection;
 
+use FOS\OAuthServerBundle\Util\LegacyFormHelper;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 
 class FOSOAuthServerExtension extends Extension
 {
@@ -31,16 +32,17 @@ class FOSOAuthServerExtension extends Extension
     {
         $processor = new Processor();
         $configuration = new Configuration();
+
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         if ('custom' !== $config['db_driver']) {
-            $loader->load(sprintf('%s.php', $config['db_driver']));
+            $loader->load(sprintf('%s.yaml', $config['db_driver']));
         }
 
         foreach (['oauth', 'security'] as $basename) {
-            $loader->load(sprintf('%s.php', $basename));
+            $loader->load(sprintf('%s.yaml', $basename));
         }
 
         $container->setAlias('fos_oauth_server.storage', $config['service']['storage']);
@@ -67,6 +69,7 @@ class FOSOAuthServerExtension extends Extension
                 'refresh_token_class' => 'fos_oauth_server.model.refresh_token.class',
                 'auth_code_class' => 'fos_oauth_server.model.auth_code.class',
             ],
+            'template' => 'fos_oauth_server.template.%s',
         ]);
 
         // Handle the MongoDB document manager name in a specific way as it does not have a registry to make it easy
@@ -75,11 +78,15 @@ class FOSOAuthServerExtension extends Extension
             if (null === $config['model_manager_name']) {
                 $container->setAlias('fos_oauth_server.document_manager', new Alias('doctrine.odm.mongodb.document_manager', false));
             } else {
-                $container->setAlias('fos_oauth_server.document_manager', new Alias(
-                    sprintf('doctrine.odm.%s_mongodb.document_manager',
-                        $config['model_manager_name']),
-                    false
-                ));
+                $container->setAlias(
+                    'fos_oauth_server.document_manager',
+                    new Alias(
+                        sprintf(
+                            'doctrine.odm.%s_mongodb.document_manager',
+                            $config['model_manager_name']
+                        ),
+                        false
+                    ));
             }
         }
 
@@ -139,14 +146,14 @@ class FOSOAuthServerExtension extends Extension
         }
     }
 
-    protected function loadAuthorize(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    protected function loadAuthorize(array $config, ContainerBuilder $container, YamlFileLoader $loader)
     {
-        $loader->load('authorize.php');
+        $loader->load('authorize.yaml');
 
         $container->setAlias('fos_oauth_server.authorize.form.handler', $config['form']['handler']);
         unset($config['form']['handler']);
 
-        if ($config['form']['type'] === 'fos_oauth_server_authorize') {
+        if (!LegacyFormHelper::isLegacy() && $config['form']['type'] === 'fos_oauth_server_authorize') {
             $authorizeFormTypeDefinition = $container->getDefinition('fos_oauth_server.authorize.form.type');
             $config['form']['type'] = $authorizeFormTypeDefinition->getClass();
         }
@@ -167,3 +174,4 @@ class FOSOAuthServerExtension extends Extension
         return implode(' ', $supportedScopes);
     }
 }
+
